@@ -56,6 +56,9 @@ function renderApp() {
     </section>
 
     <section class="section" id="venue">
+      <div class="section-bg-decos" aria-hidden="true">
+        <img class="section-bg-decos__item section-bg-decos__item--1" src="./img/bg_deco_001.png" alt="" />
+      </div>
       <div class="container">
         <div class="section-title reveal">
           <p class="section-title__eyebrow">ACCESS</p>
@@ -74,20 +77,24 @@ function renderApp() {
     </section>
 
     <section class="section section--form" id="rsvp">
+      <div class="section-bg-decos" aria-hidden="true">
+        <img class="section-bg-decos__item section-bg-decos__item--2" src="./img/bg_deco_002.png" alt="" />
+        <img class="section-bg-decos__item section-bg-decos__item--3" src="./img/bg_deco_003.png" alt="" />
+      </div>
       <div class="container">
         <div class="section-title reveal">
           <p class="section-title__eyebrow">RSVP</p>
           <h2 class="section-title__title">ご出欠について</h2>
-          <p class="section-title__copy">お手数ですが<br> ${content.hero.rsvpDeadline}に<br>ご回答をお願いいたします</p>
+          <p class="section-title__copy">お手数ですが<br><span class="section-title__deadline">${content.hero.rsvpDeadline}</span>に<br>ご回答をお願いいたします</p>
         </div>
         <div class="rsvp-layout">
           <form class="rsvp-form reveal" id="rsvp-form">
             <label class="field">
-              <span>お名前</span>
+              <span>お名前<br>※複数入力する時は「、」で区切ってください</span>
               <input name="name" data-field-key="name" type="text" required />
             </label>
             <label class="field">
-              <span>フリガナ</span>
+              <span>フリガナ<br>※複数入力する時は「、」で区切ってください</span>
               <input name="furigana" data-field-key="furigana" type="text" required />
             </label>
             <label class="field">
@@ -118,7 +125,7 @@ function renderApp() {
               <input name="phone" data-field-key="phone" type="tel" required />
             </label>
             <fieldset class="field">
-              <legend>アレルギーはありますか？</legend>
+              <legend>アレルギーや苦手な食べ物はありますか？</legend>
               <div class="choice-row">
                 ${content.rsvp.allergyOptions
                   .map(
