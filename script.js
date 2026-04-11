@@ -16,21 +16,14 @@ function renderApp() {
   const app = document.getElementById("app");
   app.innerHTML = `
     <section class="hero" id="hero">
-      <div class="hero__backdrop"></div>
+      <img class="hero__text-bg" src="./img/hero_text_bg.svg" alt="" aria-hidden="true" />
+      <img class="hero__info-bg" src="./img/hero_info_bg.svg" alt="" aria-hidden="true" />
+      <img class="hero__text-rotate" src="./img/hero_text_rotate.svg" alt="" aria-hidden="true" />
+      <img class="hero__deco" src="./img/hero_deco.png" alt="" aria-hidden="true" />
       <div class="hero__inner reveal">
-        <p class="hero__eyebrow">${content.hero.eyebrow}</p>
-        <p class="hero__date">${content.hero.date}</p>
-        <h1 class="hero__title">${content.hero.namesJa}</h1>
-        <p class="hero__names">${content.hero.couple}</p>
-        <div class="hero__meta">
-          <div>
-            <span class="hero__label">Ceremony</span>
-            <strong>${content.hero.ceremony}</strong>
-          </div>
-          <div>
-            <span class="hero__label">Reception</span>
-            <strong>${content.hero.reception}</strong>
-          </div>
+        <div class="hero__info-text">
+          <p class="hero__date">${content.hero.date}</p>
+          <h1 class="hero__title">${content.hero.namesJa}</h1>
         </div>
       </div>
     </section>
@@ -52,7 +45,6 @@ function renderApp() {
       <div class="container">
         <div class="section-title section-title--stacked reveal">
           <img class="section-title__asset section-title__asset--timetable" src="./img/timetable_title.svg" alt="TIME TABLE" />
-          <h2 class="section-title__title">当日の流れ</h2>
         </div>
         <div class="schedule-board reveal">
           <img class="schedule-board__deco" src="./img/timetable_deco.svg" alt="" aria-hidden="true" />

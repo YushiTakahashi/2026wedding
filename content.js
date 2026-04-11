@@ -4,7 +4,7 @@ window.invitationContent = {
     date: "2026.06.28 SUN",
     ceremony: "Ceremony 10:30",
     reception: "Reception 11:00 - 13:30",
-    couple: "Airi Miyake & Yushi Takahashi",
+    couple: "AIRI MIYAKE & YUSHI TAKAHASHI",
     namesJa: "三宅愛理  高橋優志",
     venue: "L2126",
     address: "東京都港区南青山4-21-26 RUELLE青山",
@@ -33,18 +33,18 @@ window.invitationContent = {
   ],
   schedule: [
     {
-      time: "10:00",
-      label: "受付 開始",
+      time: "9:00",
+      label: "受付スタート",
       note: "",
     },
     {
       time: "10:30",
-      label: "挙式 START",
+      label: "挙式スタート",
       note: "",
     },
     {
       time: "11:00",
-      label: "披露宴 START",
+      label: "披露宴スタート",
       note: "",
     },
     {
@@ -76,7 +76,7 @@ window.invitationContent = {
       "https://docs.google.com/forms/d/e/1FAIpQLSd54-q6vCQKv1NIOJdccAFiJDbcDC69Oqa_hNhVckd_KH237g/formResponse",
     submitTarget: "google-form-submit-frame",
     submitMessage:
-      "送信ありがとうございました Googleフォームに回答を送信しました",
+      "送信ありがとうございました！Googleフォームに回答を送信しました",
     entries: {
       guestType: "entry.693435807",
       name: "entry.171815300",
