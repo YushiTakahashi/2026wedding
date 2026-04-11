@@ -3,14 +3,6 @@ const content = window.invitationContent;
 const googleForm = content.googleForm;
 const appsScript = content.appsScript || { enabled: false };
 
-function isSafariBrowser() {
-  const ua = window.navigator.userAgent;
-  const vendor = window.navigator.vendor || "";
-  return /Safari/i.test(ua)
-    && /Apple/i.test(vendor)
-    && !/CriOS|Chrome|FxiOS|Firefox|EdgiOS|Edg\//i.test(ua);
-}
-
 function createSectionTitle(eyebrow, title, copy) {
   return `
     <div class="section-title reveal">
@@ -454,16 +446,6 @@ function bindForm() {
     }
 
     if (googleForm.enabled && form.action) {
-      if (isSafariBrowser()) {
-        submissionMode = "google-form-safari";
-        status.textContent = "新しいタブで送信します\n送信完了画面をご確認ください";
-        form.target = "_blank";
-        form.submit();
-        submissionMode = null;
-        form.target = googleForm.submitTarget || "google-form-submit-frame";
-        return;
-      }
-
       isSubmitting = true;
       submissionMode = "google-form";
       status.textContent = "送信中です 少々お待ちください";
