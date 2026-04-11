@@ -76,7 +76,7 @@ window.invitationContent = {
       "https://docs.google.com/forms/d/e/1FAIpQLSd54-q6vCQKv1NIOJdccAFiJDbcDC69Oqa_hNhVckd_KH237g/formResponse",
     submitTarget: "google-form-submit-frame",
     submitMessage:
-      "送信ありがとうございました！Googleフォームに回答を送信しました",
+      "回答を受け付けました\nありがとうございます！",
     entries: {
       guestType: "entry.693435807",
       name: "entry.171815300",

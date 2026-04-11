@@ -316,9 +316,23 @@ function persistAndPreview(form) {
 function bindForm() {
   const form = document.getElementById("rsvp-form");
   const status = document.getElementById("form-status");
+  const submitFrame = document.getElementById(
+    googleForm.submitTarget || "google-form-submit-frame",
+  );
+  let isSubmitting = false;
 
   restoreForm(form);
   applyGoogleFormConfig(form);
+
+  if (submitFrame) {
+    submitFrame.addEventListener("load", () => {
+      if (!isSubmitting) return;
+      isSubmitting = false;
+      const completedStatusMessage = `${googleForm.submitMessage}\nこの画面は閉じて大丈夫です`;
+      status.textContent = completedStatusMessage;
+      window.alert(completedStatusMessage);
+    });
+  }
 
   form.addEventListener("input", () => {
     persistAndPreview(form);
@@ -328,11 +342,9 @@ function bindForm() {
     event.preventDefault();
     const data = persistAndPreview(form);
     if (googleForm.enabled && form.action) {
-      status.textContent = "Googleフォームへ送信しています...";
+      isSubmitting = true;
+      status.textContent = "送信中です 少々お待ちください";
       form.submit();
-      window.setTimeout(() => {
-        status.textContent = googleForm.submitMessage;
-      }, 800);
       return;
     }
 
