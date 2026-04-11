@@ -31,6 +31,10 @@ function renderApp() {
     </section>
 
     <section class="section section--greeting" id="greeting">
+      <div class="section-bg-decos" aria-hidden="true">
+        <img class="section-bg-decos__item section-bg-decos__item--2" src="./img/bg_deco_002.png" alt="" />
+        <img class="section-bg-decos__item section-bg-decos__item--3" src="./img/bg_deco_003.png" alt="" />
+      </div>
       <div class="container">
         <div class="section-title section-title--center reveal">
           <img class="section-title__asset section-title__asset--thankyou" src="./img/thankyou.svg" alt="THANK YOU!" />
@@ -77,10 +81,6 @@ function renderApp() {
     </section>
 
     <section class="section section--form" id="rsvp">
-      <div class="section-bg-decos" aria-hidden="true">
-        <img class="section-bg-decos__item section-bg-decos__item--2" src="./img/bg_deco_002.png" alt="" />
-        <img class="section-bg-decos__item section-bg-decos__item--3" src="./img/bg_deco_003.png" alt="" />
-      </div>
       <div class="container">
         <div class="section-title reveal">
           <p class="section-title__eyebrow">RSVP</p>
