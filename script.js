@@ -16,11 +16,13 @@ function renderApp() {
   const app = document.getElementById("app");
   app.innerHTML = `
     <section class="hero" id="hero">
-      <img class="hero__text-bg" src="./img/hero_text_bg.svg" alt="" aria-hidden="true" />
-      <img class="hero__info-bg" src="./img/hero_info_bg.svg" alt="" aria-hidden="true" />
-      <img class="hero__text-rotate" src="./img/hero_text_rotate.svg" alt="" aria-hidden="true" />
-      <img class="hero__deco" src="./img/hero_deco.png" alt="" aria-hidden="true" />
-      <div class="hero__inner reveal">
+      <div class="hero__art reveal">
+        <img class="hero__text-bg" src="./img/hero_text_bg.svg" alt="" aria-hidden="true" />
+        <img class="hero__text-rotate" src="./img/hero_text_rotate.svg" alt="" aria-hidden="true" />
+        <img class="hero__deco" src="./img/hero_deco.png" alt="" aria-hidden="true" />
+      </div>
+      <div class="hero__info reveal">
+        <img class="hero__info-bg" src="./img/hero_info_bg.svg" alt="" aria-hidden="true" />
         <div class="hero__info-text">
           <p class="hero__date">${content.hero.date}</p>
           <h1 class="hero__title">${content.hero.namesJa}</h1>
@@ -35,7 +37,7 @@ function renderApp() {
           <p class="section-title__copy">${content.greeting.lead}</p>
         </div>
         <div class="greeting-card reveal">
-          <img class="greeting-card__icon" src="./img/icon.svg" alt="" aria-hidden="true" />
+          <img class="greeting-card__icon" src="./img/icon.png" alt="" aria-hidden="true" />
           <p class="greeting-card__sign">${content.hero.namesJa}</p>
         </div>
       </div>
@@ -47,7 +49,7 @@ function renderApp() {
           <img class="section-title__asset section-title__asset--timetable" src="./img/timetable_title.svg" alt="TIME TABLE" />
         </div>
         <div class="schedule-board reveal">
-          <img class="schedule-board__deco" src="./img/timetable_deco.svg" alt="" aria-hidden="true" />
+          <img class="schedule-board__deco" src="./img/timetable_deco.png" alt="" aria-hidden="true" />
           <ol class="timeline" id="timeline"></ol>
         </div>
       </div>
