@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Invitation | Yushi & Airi</title>
+    <meta
+      name="description"
+      content="高橋優志さん・三宅愛理さんの結婚式Web招待状ベース実装。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <aside class="side-rail" aria-label="quick actions">
+      <a class="side-rail__link" href="#rsvp">RSVP</a>
+      <a class="side-rail__link side-rail__link--secondary" href="#venue">INFO</a>
+    </aside>
+
+    <main id="app"></main>
+
+    <iframe
+      name="google-form-submit-frame"
+      id="google-form-submit-frame"
+      title="google form submit target"
+      hidden
+    ></iframe>
+
+    <div class="mobile-actions" aria-label="quick actions">
+      <a class="mobile-actions__link" href="#rsvp">RSVP</a>
+      <a class="mobile-actions__link mobile-actions__link--secondary" href="#venue"
+        >会場情報</a
+      >
+    </div>
+
+    <template id="timeline-item-template">
+      <li class="timeline__item reveal">
+        <div class="timeline__time"></div>
+        <div class="timeline__dot" aria-hidden="true"></div>
+        <div class="timeline__body">
+          <p class="timeline__label"></p>
+          <p class="timeline__note"></p>
+        </div>
+      </li>
+    </template>
+
+    <template id="host-card-template">
+      <article class="host-card reveal">
+        <div class="host-card__avatar" aria-hidden="true"></div>
+        <div class="host-card__meta">
+          <p class="host-card__role"></p>
+          <h3 class="host-card__name"></h3>
+          <p class="host-card__message"></p>
+        </div>
+      </article>
+    </template>
+
+    <script src="./content.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
