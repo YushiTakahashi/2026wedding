@@ -90,4 +90,10 @@ window.invitationContent = {
       reception: "entry.1934073530",
     },
   },
+  appsScript: {
+    enabled: true,
+    webAppUrl: "https://script.google.com/macros/s/AKfycbxf-yKtmzW63cz2NG1Rh4rbZSQqIC7c5hgr2nE7SxppOJ9QQ--6ggBFLCo9yyqJTbk-/exec",
+    submitMessage:
+      "回答を受け付けました\nありがとうございます！",
+  },
 };

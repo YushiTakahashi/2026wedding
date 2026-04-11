@@ -1,6 +1,7 @@
 const storageKey = "wedding-invitation-rsvp";
 const content = window.invitationContent;
 const googleForm = content.googleForm;
+const appsScript = content.appsScript || { enabled: false };
 
 function createSectionTitle(eyebrow, title, copy) {
   return `
@@ -320,6 +321,30 @@ function persistAndPreview(form) {
   return data;
 }
 
+async function submitViaAppsScript(data) {
+  const response = await window.fetch(appsScript.webAppUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8",
+    },
+    body: JSON.stringify({
+      submittedAt: new Date().toISOString(),
+      ...data,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Apps Script request failed: ${response.status}`);
+  }
+
+  const payload = await response.json();
+  if (!payload || payload.ok !== true) {
+    throw new Error("Apps Script did not confirm success");
+  }
+
+  return payload;
+}
+
 function bindForm() {
   const form = document.getElementById("rsvp-form");
   const status = document.getElementById("form-status");
@@ -348,6 +373,24 @@ function bindForm() {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const data = persistAndPreview(form);
+    if (appsScript.enabled && appsScript.webAppUrl) {
+      isSubmitting = true;
+      status.textContent = "送信中です 少々お待ちください";
+      submitViaAppsScript(data)
+        .then(() => {
+          isSubmitting = false;
+          const completedStatusMessage = `${appsScript.submitMessage || googleForm.submitMessage}\nこの画面は閉じて大丈夫です`;
+          status.textContent = completedStatusMessage;
+          window.alert(completedStatusMessage);
+        })
+        .catch((error) => {
+          isSubmitting = false;
+          status.textContent = "送信できませんでした 時間をおいてもう一度お試しください";
+          window.console.error(error);
+        });
+      return;
+    }
+
     if (googleForm.enabled && form.action) {
       isSubmitting = true;
       status.textContent = "送信中です 少々お待ちください";

@@ -66,3 +66,33 @@ googleForm: {
 - `「あり」と回答した方`: `entry.32593815`
 - `挙式`: `entry.1298471478`
 - `披露宴`: `entry.1934073530`
+
+## Apps Script 連携
+
+Googleフォーム直送だと「送信先 iframe の読み込み完了」までは分かっても、実際に回答が反映されたかの厳密確認はしづらいです。
+より確実にしたい場合は `apps_script/Code.gs` を Google Apps Script に貼り付けて、スプレッドシートへ直接追記する構成にできます。
+
+### 手順
+
+1. 回答を保存したいスプレッドシートを開く
+2. Apps Script を開いて `apps_script/Code.gs` の内容を貼る
+3. Web アプリとしてデプロイする
+4. `content.js` の `appsScript` を設定する
+
+```js
+appsScript: {
+  enabled: true,
+  webAppUrl: "https://script.google.com/macros/s/xxx/exec",
+  submitMessage: "回答を受け付けました\nありがとうございます！",
+}
+```
+
+Apps Script が `ok: true` を返したときだけ、フロント側で完了ポップアップを出すようになっています。
+
+### 動作確認
+
+デプロイ後に `exec` URL をブラウザで直接開いて、次のような JSON が見えれば公開自体は成功です。
+
+```json
+{"ok":true,"message":"Apps Script is running","sheetName":"responses"}
+```
