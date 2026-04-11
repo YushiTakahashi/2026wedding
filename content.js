@@ -33,7 +33,7 @@ window.invitationContent = {
   ],
   schedule: [
     {
-      time: "9:00",
+      time: "9:30",
       label: "受付スタート",
       note: "",
     },
