@@ -321,28 +321,76 @@ function persistAndPreview(form) {
   return data;
 }
 
-async function submitViaAppsScript(data) {
-  const response = await window.fetch(appsScript.webAppUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "text/plain;charset=utf-8",
-    },
-    body: JSON.stringify({
+function submitViaAppsScript(data, targetName) {
+  return new Promise((resolve, reject) => {
+    const targetFrame = document.getElementById(targetName);
+    const tempForm = document.createElement("form");
+    tempForm.method = "POST";
+    tempForm.action = appsScript.webAppUrl;
+    tempForm.target = targetName;
+    tempForm.hidden = true;
+    let settled = false;
+    let timeoutId = null;
+
+    const payload = {
       submittedAt: new Date().toISOString(),
       ...data,
-    }),
+    };
+
+    Object.entries(payload).forEach(([key, value]) => {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = key;
+      input.value = value ?? "";
+      tempForm.appendChild(input);
+    });
+
+    const cleanup = () => {
+      settled = true;
+      if (timeoutId) window.clearTimeout(timeoutId);
+      window.removeEventListener("message", handleMessage);
+      if (targetFrame) {
+        targetFrame.removeEventListener("load", handleFrameLoad);
+      }
+      tempForm.remove();
+    };
+
+    const handleMessage = (event) => {
+      const message = event.data;
+      if (settled) return;
+      if (!message || message.source !== "wedding-rsvp-apps-script") return;
+
+      if (message.payload && message.payload.ok === true) {
+        cleanup();
+        resolve(message.payload);
+        return;
+      }
+
+      cleanup();
+      reject(new Error(message.payload?.error || "Apps Script did not confirm success"));
+    };
+
+    const handleFrameLoad = () => {
+      if (settled) return;
+      window.setTimeout(() => {
+        if (settled) return;
+        cleanup();
+        reject(new Error("Apps Script response did not confirm success"));
+      }, 300);
+    };
+
+    window.addEventListener("message", handleMessage);
+    if (targetFrame) {
+      targetFrame.addEventListener("load", handleFrameLoad, { once: true });
+    }
+    document.body.appendChild(tempForm);
+    timeoutId = window.setTimeout(() => {
+      if (settled) return;
+      cleanup();
+      reject(new Error("Apps Script response timed out"));
+    }, 12000);
+    tempForm.submit();
   });
-
-  if (!response.ok) {
-    throw new Error(`Apps Script request failed: ${response.status}`);
-  }
-
-  const payload = await response.json();
-  if (!payload || payload.ok !== true) {
-    throw new Error("Apps Script did not confirm success");
-  }
-
-  return payload;
 }
 
 function bindForm() {
@@ -352,6 +400,7 @@ function bindForm() {
     googleForm.submitTarget || "google-form-submit-frame",
   );
   let isSubmitting = false;
+  let submissionMode = null;
 
   restoreForm(form);
   applyGoogleFormConfig(form);
@@ -359,7 +408,9 @@ function bindForm() {
   if (submitFrame) {
     submitFrame.addEventListener("load", () => {
       if (!isSubmitting) return;
+      if (submissionMode !== "google-form") return;
       isSubmitting = false;
+      submissionMode = null;
       const completedStatusMessage = `${googleForm.submitMessage}\nこの画面は閉じて大丈夫です`;
       status.textContent = completedStatusMessage;
       window.alert(completedStatusMessage);
@@ -375,16 +426,19 @@ function bindForm() {
     const data = persistAndPreview(form);
     if (appsScript.enabled && appsScript.webAppUrl) {
       isSubmitting = true;
+      submissionMode = "apps-script";
       status.textContent = "送信中です 少々お待ちください";
-      submitViaAppsScript(data)
+      submitViaAppsScript(data, googleForm.submitTarget || "google-form-submit-frame")
         .then(() => {
           isSubmitting = false;
+          submissionMode = null;
           const completedStatusMessage = `${appsScript.submitMessage || googleForm.submitMessage}\nこの画面は閉じて大丈夫です`;
           status.textContent = completedStatusMessage;
           window.alert(completedStatusMessage);
         })
         .catch((error) => {
           isSubmitting = false;
+          submissionMode = null;
           status.textContent = "送信できませんでした 時間をおいてもう一度お試しください";
           window.console.error(error);
         });
@@ -393,6 +447,7 @@ function bindForm() {
 
     if (googleForm.enabled && form.action) {
       isSubmitting = true;
+      submissionMode = "google-form";
       status.textContent = "送信中です 少々お待ちください";
       form.submit();
       return;

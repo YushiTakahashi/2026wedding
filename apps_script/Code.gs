@@ -22,13 +22,26 @@ function doGet() {
   });
 }
 
+function doAuthorize() {
+  const response = UrlFetchApp.fetch("https://www.google.com", {
+    method: "get",
+    muteHttpExceptions: true,
+  });
+
+  return {
+    ok: true,
+    status: response.getResponseCode(),
+    message: "Authorization completed",
+  };
+}
+
 function doPost(e) {
   try {
-    const payload = JSON.parse(e.postData.contents || "{}");
+    const payload = parsePayload_(e);
     const formResult = submitToGoogleForm_(payload);
     const logResult = appendResponseLog_(payload);
 
-    return jsonOutput_({
+    return htmlMessageOutput_({
       ok: true,
       destination: "google-form-and-log",
       formStatus: formResult.status,
@@ -36,7 +49,7 @@ function doPost(e) {
       logRow: logResult.row,
     });
   } catch (error) {
-    return jsonOutput_({
+    return htmlMessageOutput_({
       ok: false,
       error: String(error),
     });
@@ -119,5 +132,56 @@ function ensureHeader_(sheet, header) {
 function jsonOutput_(payload) {
   return ContentService.createTextOutput(JSON.stringify(payload)).setMimeType(
     ContentService.MimeType.JSON,
+  );
+}
+
+function parsePayload_(e) {
+  const contents = e && e.postData ? e.postData.contents || "" : "";
+  if (contents) {
+    try {
+      return JSON.parse(contents);
+    } catch (error) {
+      // Fall back to form parameters below when the request is not JSON.
+    }
+  }
+
+  const params = (e && e.parameter) || {};
+  return {
+    submittedAt: params.submittedAt || "",
+    name: params.name || "",
+    furigana: params.furigana || "",
+    guestType: params.guestType || "",
+    postcode: params.postcode || "",
+    address: params.address || "",
+    phone: params.phone || "",
+    allergy: params.allergy || "",
+    allergyDetail: params.allergyDetail || "",
+    ceremony: params.ceremony || "",
+    reception: params.reception || "",
+  };
+}
+
+function htmlMessageOutput_(payload) {
+  const encodedPayload = JSON.stringify(payload).replace(/</g, "\\u003c");
+  const bodyText = payload.ok
+    ? "Submission completed"
+    : `Submission failed: ${payload.error || "Unknown error"}`;
+
+  return HtmlService.createHtmlOutput(
+    `<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      window.parent.postMessage(
+        {
+          source: "wedding-rsvp-apps-script",
+          payload: ${encodedPayload}
+        },
+        "*"
+      );
+    </script>
+    <p>${bodyText}</p>
+  </body>
+</html>`,
   );
 }

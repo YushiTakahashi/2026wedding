@@ -91,8 +91,8 @@ window.invitationContent = {
     },
   },
   appsScript: {
-    enabled: true,
-    webAppUrl: "https://script.google.com/macros/s/AKfycbxIKzJA-RMgN30b9VTya1RijcqSmFUGMGp5xt9yCTwO9Nr-Sfj9RrA6nhHH8KLUrFGfpw/exec",
+    enabled: false,
+    webAppUrl: "https://script.google.com/macros/s/AKfycbw9l8XY2JC8xRmHnLB1LtRsx0RTGBYYg552behhA3SWAnaH-BgeKXimw_9Ks9v80SjokQ/exec",
     submitMessage:
       "回答を受け付けました\nありがとうございます！",
   },
