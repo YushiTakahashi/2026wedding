@@ -74,7 +74,7 @@ window.invitationContent = {
     deadline: "2026-05-21",
     ceremonyOptions: ["ご出席", "ご欠席"],
     receptionOptions: ["ご出席", "ご欠席"],
-    sideOptions: ["新郎側", "新婦側"],
+    sideOptions: ["新郎ゲスト", "新婦ゲスト"],
     allergyOptions: ["なし", "あり"],
     messagePlaceholder:
       "アレルギー詳細をご記入ください。",
@@ -87,7 +87,6 @@ window.invitationContent = {
     submitMessage:
       "送信ありがとうございました。Googleフォームに回答を送信しました。",
     entries: {
-      name: "",
       guestType: "entry.693435807",
       name: "entry.171815300",
       furigana: "entry.2021811141",
