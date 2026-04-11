@@ -4,8 +4,8 @@ window.invitationContent = {
     date: "2026.06.28 SUN",
     ceremony: "Ceremony 10:30",
     reception: "Reception 11:00 - 13:30",
-    couple: "Yushi Takahashi & Airi Miyake",
-    namesJa: "高橋優志  三宅愛理",
+    couple: "Airi Miyake & Yushi Takahashi",
+    namesJa: "三宅愛理  高橋優志",
     venue: "L2126",
     address: "東京都港区南青山4-21-26 RUELLE青山",
     rsvpDeadline: "2026年5月21日(木) まで",
@@ -13,61 +13,52 @@ window.invitationContent = {
   greeting: {
     title: "ご挨拶",
     lead:
-      "本日はご多用中にもかかわらずお集まりいただきありがとうございます。皆様にあたたかく見守られながら今日という特別な日を迎えられることを心より幸せに思います。",
-    body:
-      "未熟な私たちですが、手を取り合い共に歩んでいきたいと願っています。ささやかですがお披露目の席をもうけさせていただきました。どうぞ楽しいひとときをお過ごしください。",
+      "本日はご多用中にもかかわらず<br>お集まりいただきありがとうございます<br><br>皆様にあたたかく見守られながら<br>今日という特別な日を迎えられることを<br>心より幸せに思います<br><br>未熟な私たちですが手を取り合い<br>共に歩んでいきたいと願っています<br><br>ささやかですがお披露目の席を<br>もうけさせていただきました<br>どうぞ楽しいひとときをお過ごしください",
   },
   hosts: [
-    {
-      role: "GROOM",
-      name: "高橋優志",
-      initial: "Y",
-      message:
-        "これまで支えてくださった皆さまへの感謝を、きちんと直接お伝えできる一日にしたいと思っています。たくさん食べて、気楽に楽しんでください。",
-    },
     {
       role: "BRIDE",
       name: "三宅愛理",
       initial: "A",
       message:
-        "大切な家族や友人に囲まれてこの日を迎えられることが本当に嬉しいです。肩ひじ張らず、いつもの私たちらしく過ごせたらと思っています。",
+        "大切な家族や友人に囲まれてこの日を迎えられることが本当に嬉しいです 肩ひじ張らず いつもの私たちらしく過ごせたらと思っています",
+    },
+    {
+      role: "GROOM",
+      name: "高橋優志",
+      initial: "Y",
+      message:
+        "これまで支えてくださった皆さまへの感謝を きちんと直接お伝えできる一日にしたいと思っています たくさん食べて 気楽に楽しんでください",
     },
   ],
   schedule: [
     {
-      time: "09:30",
-      label: "受付開始",
-      note: "ウェルカムスペースと受付をご案内予定です。",
+      time: "10:00",
+      label: "受付 開始",
+      note: "",
     },
     {
       time: "10:30",
-      label: "人前式",
-      note: "挙式は人前式を予定しています。",
+      label: "挙式 START",
+      note: "",
     },
     {
       time: "11:00",
-      label: "披露宴スタート",
-      note: "オープニング映像のあと、新郎新婦入場予定です。",
-    },
-    {
-      time: "11:30",
-      label: "お食事スタート",
-      note: "ゆっくり歓談いただける時間も多めにとる予定です。",
+      label: "披露宴 START",
+      note: "",
     },
     {
       time: "13:30",
       label: "お披楽喜",
-      note: "プチギフトをお渡ししながらお見送りします。",
+      note: "",
     },
   ],
   venue: {
     name: "L2126",
     url: "https://wedding.escrit.jp/place/l2126.aoyama/",
-    address: "〒107-0062 東京都港区南青山4-21-26 RUELLE青山",
+    address: "〒107-0062<br>東京都港区南青山4-21-26<br>RUELLE青山",
     access: [
-      "東京メトロ 表参道駅からアクセスしやすい立地です。",
-      "詳細な経路やお車での来場可否は、会場公式ページでの確認を想定しています。",
-      "ご不明点がある場合は個別にご連絡ください。",
+      "東京メトロ表参道駅A4出口より徒歩3分",
     ],
   },
   rsvp: {
@@ -77,7 +68,7 @@ window.invitationContent = {
     sideOptions: ["新郎ゲスト", "新婦ゲスト"],
     allergyOptions: ["なし", "あり"],
     messagePlaceholder:
-      "アレルギー詳細をご記入ください。",
+      "アレルギー詳細をご記入ください",
   },
   googleForm: {
     enabled: true,
@@ -85,7 +76,7 @@ window.invitationContent = {
       "https://docs.google.com/forms/d/e/1FAIpQLSd54-q6vCQKv1NIOJdccAFiJDbcDC69Oqa_hNhVckd_KH237g/formResponse",
     submitTarget: "google-form-submit-frame",
     submitMessage:
-      "送信ありがとうございました。Googleフォームに回答を送信しました。",
+      "送信ありがとうございました Googleフォームに回答を送信しました",
     entries: {
       guestType: "entry.693435807",
       name: "entry.171815300",

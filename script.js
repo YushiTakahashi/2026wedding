@@ -20,8 +20,8 @@ function renderApp() {
       <div class="hero__inner reveal">
         <p class="hero__eyebrow">${content.hero.eyebrow}</p>
         <p class="hero__date">${content.hero.date}</p>
-        <h1 class="hero__title">${content.hero.couple}</h1>
-        <p class="hero__names">${content.hero.namesJa}</p>
+        <h1 class="hero__title">${content.hero.namesJa}</h1>
+        <p class="hero__names">${content.hero.couple}</p>
         <div class="hero__meta">
           <div>
             <span class="hero__label">Ceremony</span>
@@ -31,54 +31,46 @@ function renderApp() {
             <span class="hero__label">Reception</span>
             <strong>${content.hero.reception}</strong>
           </div>
-          <div>
-            <span class="hero__label">Venue</span>
-            <strong>${content.hero.venue}</strong>
-          </div>
         </div>
-        <div class="hero__actions">
-          <a class="button button--primary" href="#rsvp">出欠を回答する</a>
-          <a class="button button--ghost" href="#venue">会場情報を見る</a>
-        </div>
-        <p class="hero__deadline">ご回答期限: ${content.hero.rsvpDeadline}</p>
       </div>
     </section>
 
     <section class="section section--greeting" id="greeting">
       <div class="container">
-        ${createSectionTitle("Greeting", content.greeting.title, content.greeting.lead)}
-        <div class="greeting-card reveal">
-          <p>${content.greeting.body}</p>
+        <div class="section-title section-title--center reveal">
+          <img class="section-title__asset section-title__asset--thankyou" src="./img/thankyou.svg" alt="THANK YOU!" />
+          <p class="section-title__copy">${content.greeting.lead}</p>
         </div>
-      </div>
-    </section>
-
-    <section class="section" id="hosts">
-      <div class="container">
-        ${createSectionTitle("Hosts", "ホスト", "参考URLのプロフィール構成を土台に、2名の紹介カードとして再構成しています。")}
-        <div class="host-list" id="host-list"></div>
+        <div class="greeting-card reveal">
+          <img class="greeting-card__icon" src="./img/icon.svg" alt="" aria-hidden="true" />
+          <p class="greeting-card__sign">${content.hero.namesJa}</p>
+        </div>
       </div>
     </section>
 
     <section class="section section--warm" id="schedule">
       <div class="container">
-        ${createSectionTitle("Schedule", "当日の流れ", "ブラプラの縦タイムライン構成をベースに、ローカル資料の時刻を反映した見せ方です。")}
-        <ol class="timeline" id="timeline"></ol>
+        <div class="section-title section-title--stacked reveal">
+          <img class="section-title__asset section-title__asset--timetable" src="./img/timetable_title.svg" alt="TIME TABLE" />
+          <h2 class="section-title__title">当日の流れ</h2>
+        </div>
+        <div class="schedule-board reveal">
+          <img class="schedule-board__deco" src="./img/timetable_deco.svg" alt="" aria-hidden="true" />
+          <ol class="timeline" id="timeline"></ol>
+        </div>
       </div>
     </section>
 
     <section class="section" id="venue">
       <div class="container">
-        ${createSectionTitle("Information", "会場情報", content.venue.address)}
-        <div class="info-grid">
-          <article class="info-card reveal">
-            <p class="info-card__eyebrow">Venue</p>
-            <h3>${content.venue.name}</h3>
+        <div class="section-title reveal">
+          <p class="section-title__eyebrow">ACCESS</p>
+          <h2 class="section-title__subheading">会場情報</h2>
+        </div>
+        <div class="info-grid reveal">
+          <article class="info-card">
+            <h2 class="section-title__title">${content.venue.name}</h2>
             <p>${content.venue.address}</p>
-            <a class="text-link" href="${content.venue.url}" target="_blank" rel="noreferrer">会場公式ページ</a>
-          </article>
-          <article class="info-card reveal">
-            <p class="info-card__eyebrow">Access</p>
             <ul class="info-list">
               ${content.venue.access.map((item) => `<li>${item}</li>`).join("")}
             </ul>
@@ -89,7 +81,11 @@ function renderApp() {
 
     <section class="section section--form" id="rsvp">
       <div class="container">
-        ${createSectionTitle("RSVP", "ご出欠について", `お手数ですが ${content.hero.rsvpDeadline} までにご回答をお願いいたします。`)}
+        <div class="section-title reveal">
+          <p class="section-title__eyebrow">RSVP</p>
+          <h2 class="section-title__title">ご出欠について</h2>
+          <p class="section-title__copy">お手数ですが<br> ${content.hero.rsvpDeadline}に<br>ご回答をお願いいたします</p>
+        </div>
         <div class="rsvp-layout">
           <form class="rsvp-form reveal" id="rsvp-form">
             <label class="field">
@@ -200,15 +196,9 @@ function renderApp() {
               </div>
             </fieldset>
             <div class="form-actions">
-              <button class="button button--primary" type="submit">送信する</button>
-              <button class="button button--ghost" type="button" id="download-json">
-                JSONを書き出す
-              </button>
+              <button class="button button--primary" type="submit">回答する</button>
             </div>
             <p class="form-status" id="form-status" aria-live="polite"></p>
-            <p class="form-note">
-              Googleフォーム未接続でも入力保持できます。接続時は content.js の googleForm を埋めるだけで送信先を差し替えられます。
-            </p>
           </form>
 
           <aside class="preview-card reveal">
@@ -232,6 +222,7 @@ function renderApp() {
 function renderHosts() {
   const root = document.getElementById("host-list");
   const template = document.getElementById("host-card-template");
+  if (!root || !template) return;
 
   content.hosts.forEach((host) => {
     const fragment = template.content.cloneNode(true);
@@ -251,7 +242,12 @@ function renderTimeline() {
     const fragment = template.content.cloneNode(true);
     fragment.querySelector(".timeline__time").textContent = item.time;
     fragment.querySelector(".timeline__label").textContent = item.label;
-    fragment.querySelector(".timeline__note").textContent = item.note;
+    const note = fragment.querySelector(".timeline__note");
+    if (item.note) {
+      note.textContent = item.note;
+    } else {
+      note.remove();
+    }
     root.appendChild(fragment);
   });
 }
@@ -325,7 +321,6 @@ function persistAndPreview(form) {
 
 function bindForm() {
   const form = document.getElementById("rsvp-form");
-  const downloadButton = document.getElementById("download-json");
   const status = document.getElementById("form-status");
 
   restoreForm(form);
@@ -353,22 +348,10 @@ function bindForm() {
       `挙式: ${data.ceremony || "未入力"}`,
       `披露宴: ${data.reception || "未入力"}`,
     ].join("\n");
-    status.textContent = "内容をローカル保存しました。";
-    window.alert(`入力内容を保存しました。\n\n${summary}`);
+    status.textContent = "内容をローカル保存しました";
+    window.alert(`入力内容を保存しました\n\n${summary}`);
   });
 
-  downloadButton.addEventListener("click", () => {
-    const data = persistAndPreview(form);
-    const blob = new Blob([JSON.stringify(data, null, 2)], {
-      type: "application/json",
-    });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "wedding-rsvp.json";
-    link.click();
-    URL.revokeObjectURL(url);
-  });
 }
 
 function applyGoogleFormConfig(form) {
