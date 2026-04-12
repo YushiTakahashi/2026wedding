@@ -81,7 +81,7 @@ img {
 }
 
 .hero__text-rotate {
-  width: 100%;
+  width: 90%;
   height: auto;
   display: block;
   animation: hero-rotate-loop 60s linear infinite;
@@ -98,7 +98,7 @@ img {
 }
 
 .hero__deco {
-  width: 70%;
+  width: 55%;
   height: auto;
   display: block;
 }
@@ -134,7 +134,7 @@ img {
 .hero__date {
   margin: 0 0 -4px;
   font-family: "Futehodo Maru Gothic", "Cormorant Garamond", serif;
-  font-size: 1.9rem;
+  font-size: 1.5rem;
   letter-spacing: 0.08em;
 }
 
@@ -151,7 +151,7 @@ img {
 }
 
 .section--greeting {
-  background: #fff4e5;
+  background: #fffbf6;
 }
 
 .section--warm {

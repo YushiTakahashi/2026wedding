@@ -26,7 +26,6 @@ function renderApp() {
         <img class="hero__info-bg" src="./img/hero_info_bg.svg" alt="" aria-hidden="true" />
         <div class="hero__info-text">
           <p class="hero__date">${content.hero.date}</p>
-          <h1 class="hero__title">${content.hero.namesJa}</h1>
         </div>
       </div>
     </section>

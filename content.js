@@ -1,7 +1,7 @@
 window.invitationContent = {
   hero: {
     eyebrow: "Wedding Invitation",
-    date: "2026.06.28 SUN",
+    date: "2026.06.28",
     ceremony: "Ceremony 10:30",
     reception: "Reception 11:00 - 13:30",
     couple: "AIRI MIYAKE & YUSHI TAKAHASHI",
