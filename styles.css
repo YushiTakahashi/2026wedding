@@ -81,7 +81,7 @@ img {
 }
 
 .hero__text-rotate {
-  width: 90%;
+  width: 100%;
   height: auto;
   display: block;
   animation: hero-rotate-loop 60s linear infinite;
@@ -98,7 +98,7 @@ img {
 }
 
 .hero__deco {
-  width: 55%;
+  width: 65%;
   height: auto;
   display: block;
 }
