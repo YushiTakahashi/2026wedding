@@ -26,8 +26,6 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
 }
 
 body {
@@ -70,18 +68,16 @@ img {
 .hero__inner {
   --hero-safe-top: env(safe-area-inset-top, 0px);
   --hero-safe-bottom: env(safe-area-inset-bottom, 0px);
-  --hero-top-inset: clamp(24px, calc(var(--stable-svh, 1svh) * 7), 84px);
-  --hero-bottom-inset: clamp(28px, calc(var(--stable-svh, 1svh) * 9), 108px);
+  --hero-top-inset: clamp(24px, 7vh, 84px);
+  --hero-bottom-inset: clamp(28px, 9vh, 108px);
   position: relative;
   width: 100%;
-  height: calc(var(--stable-svh, 1svh) * 100);
-  min-height: calc(var(--stable-svh, 1svh) * 100);
-  min-height: 100vh;
   min-height: 100svh;
+  min-height: 100vh;
   padding:
-    calc(var(--hero-top-inset) + var(--hero-safe-top) + var(--vv-top, 0px))
+    calc(var(--hero-top-inset) + var(--hero-safe-top))
     32px
-    calc(var(--hero-bottom-inset) + var(--hero-safe-bottom) + var(--vv-bottom-stable, 0px));
+    calc(var(--hero-bottom-inset) + var(--hero-safe-bottom));
   overflow: hidden;
 }
 
@@ -124,7 +120,7 @@ img {
 .hero__meta {
   position: absolute;
   left: 32px;
-  bottom: calc(var(--hero-bottom-inset) + var(--hero-safe-bottom) + var(--vv-bottom-stable, 0px));
+  bottom: calc(var(--hero-bottom-inset) + var(--hero-safe-bottom));
   z-index: 1;
 }
 
@@ -195,7 +191,7 @@ img {
 .hero__scroll {
   position: absolute;
   right: 20px;
-  bottom: calc(var(--hero-bottom-inset) + var(--hero-safe-bottom) + var(--vv-bottom-stable, 0px) + 14px);
+  bottom: calc(var(--hero-bottom-inset) + var(--hero-safe-bottom) + 14px);
   z-index: 1;
   display: flex;
   flex-direction: column;
