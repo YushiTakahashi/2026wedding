@@ -66,12 +66,18 @@ img {
 }
 
 .hero__inner {
+  --hero-safe-top: env(safe-area-inset-top, 0px);
+  --hero-safe-bottom: env(safe-area-inset-bottom, 0px);
   --hero-top-inset: clamp(24px, 7vh, 84px);
   --hero-bottom-inset: clamp(28px, 9vh, 108px);
   position: relative;
   width: 100%;
+  min-height: 100svh;
   min-height: 100vh;
-  padding: var(--hero-top-inset) 32px var(--hero-bottom-inset);
+  padding:
+    calc(var(--hero-top-inset) + var(--hero-safe-top))
+    32px
+    calc(var(--hero-bottom-inset) + var(--hero-safe-bottom));
   overflow: hidden;
 }
 
@@ -97,7 +103,7 @@ img {
   background-color:var(--bg-soft);
   position: absolute;
   padding: 0 12px;
-  top: var(--hero-top-inset);
+  top: 0;
   left: 32px;
   z-index: 1;
   font-family: "Futehodo Maru Gothic", "Noto Sans JP", sans-serif;
@@ -114,7 +120,7 @@ img {
 .hero__meta {
   position: absolute;
   left: 32px;
-  bottom: var(--hero-bottom-inset);
+  bottom: calc(var(--hero-bottom-inset) + var(--hero-safe-bottom));
   z-index: 1;
   animation: hero-meta-in 840ms cubic-bezier(0.2, 0.9, 0.2, 1) 220ms both;
 }
@@ -148,7 +154,7 @@ img {
 .hero__scroll {
   position: absolute;
   right: 20px;
-  bottom: calc(var(--hero-bottom-inset) + 14px);
+  bottom: calc(var(--hero-bottom-inset) + var(--hero-safe-bottom) + 14px);
   z-index: 1;
   display: flex;
   flex-direction: column;
