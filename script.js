@@ -4,6 +4,7 @@ const googleForm = content.googleForm;
 function bindStableViewportHeight() {
   const root = document.documentElement;
   let stableHeight = null;
+  const jitterTolerancePx = 32;
 
   const readViewportHeight = () => {
     if (window.visualViewport?.height) return window.visualViewport.height;
@@ -14,9 +15,14 @@ function bindStableViewportHeight() {
     const height = readViewportHeight();
     if (!height || !Number.isFinite(height)) return;
 
-    // Keep the smallest seen height to avoid layout jumps
-    // when in-app browser UI shows/hides during scroll.
-    stableHeight = stableHeight === null ? height : Math.min(stableHeight, height);
+    // Keep the smallest seen height to avoid layout jumps when in-app browser UI
+    // shows/hides during scroll. Some webviews jitter a few px while scrolling,
+    // so ignore small decreases to prevent tiny layout shifts.
+    if (stableHeight === null) {
+      stableHeight = height;
+    } else if (height < stableHeight - jitterTolerancePx) {
+      stableHeight = height;
+    }
 
     // 1svh = 1% of small viewport height, so we emulate it.
     root.style.setProperty("--stable-svh", `${stableHeight * 0.01}px`);
