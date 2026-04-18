@@ -1,6 +1,43 @@
 const content = window.invitationContent;
 const googleForm = content.googleForm;
 
+function bindStableViewportHeight() {
+  const root = document.documentElement;
+  let stableHeight = null;
+
+  const readViewportHeight = () => {
+    if (window.visualViewport?.height) return window.visualViewport.height;
+    return window.innerHeight;
+  };
+
+  const update = () => {
+    const height = readViewportHeight();
+    if (!height || !Number.isFinite(height)) return;
+
+    // Keep the smallest seen height to avoid layout jumps
+    // when in-app browser UI shows/hides during scroll.
+    stableHeight = stableHeight === null ? height : Math.min(stableHeight, height);
+
+    // 1svh = 1% of small viewport height, so we emulate it.
+    root.style.setProperty("--stable-svh", `${stableHeight * 0.01}px`);
+  };
+
+  update();
+
+  window.addEventListener("resize", update, { passive: true });
+  window.addEventListener("orientationchange", () => {
+    stableHeight = null;
+    update();
+  });
+
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", update, { passive: true });
+    window.visualViewport.addEventListener("scroll", update, { passive: true });
+  } else {
+    window.addEventListener("scroll", update, { passive: true });
+  }
+}
+
 function createSectionTitle(eyebrow, title, copy) {
   return `
     <div class="section-title reveal">
@@ -359,3 +396,4 @@ renderHosts();
 renderTimeline();
 bindForm();
 bindReveal();
+bindStableViewportHeight();
