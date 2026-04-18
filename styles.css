@@ -81,7 +81,7 @@ img {
   padding:
     calc(var(--hero-top-inset) + var(--hero-safe-top) + var(--vv-top, 0px))
     32px
-    calc(var(--hero-bottom-inset) + var(--hero-safe-bottom) + var(--vv-bottom, 0px));
+    calc(var(--hero-bottom-inset) + var(--hero-safe-bottom) + var(--vv-bottom-stable, 0px));
   overflow: hidden;
 }
 
@@ -124,7 +124,7 @@ img {
 .hero__meta {
   position: absolute;
   left: 32px;
-  bottom: calc(var(--hero-bottom-inset) + var(--hero-safe-bottom) + var(--vv-bottom, 0px));
+  bottom: calc(var(--hero-bottom-inset) + var(--hero-safe-bottom) + var(--vv-bottom-stable, 0px));
   z-index: 1;
 }
 
@@ -195,7 +195,7 @@ img {
 .hero__scroll {
   position: absolute;
   right: 20px;
-  bottom: calc(var(--hero-bottom-inset) + var(--hero-safe-bottom) + var(--vv-bottom, 0px) + 14px);
+  bottom: calc(var(--hero-bottom-inset) + var(--hero-safe-bottom) + var(--vv-bottom-stable, 0px) + 14px);
   z-index: 1;
   display: flex;
   flex-direction: column;

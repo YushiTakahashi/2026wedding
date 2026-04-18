@@ -7,6 +7,7 @@ function bindStableViewportHeight() {
   const jitterTolerancePx = 32;
   let lastOffsetTop = null;
   let lastOffsetBottom = null;
+  let stableOffsetBottom = null;
 
   const readViewportHeight = () => {
     if (window.visualViewport?.height) return window.visualViewport.height;
@@ -19,6 +20,19 @@ function bindStableViewportHeight() {
     const offsetBottom = Math.max(
       0,
       window.innerHeight - (offsetTop + window.visualViewport.height),
+    );
+
+    // Freeze the largest bottom offset we see. When in-app browser UI hides,
+    // offsetBottom tends to shrink toward 0, which would otherwise pull content
+    // downward. Using the max keeps layout stable.
+    if (stableOffsetBottom === null) {
+      stableOffsetBottom = offsetBottom;
+    } else if (offsetBottom > stableOffsetBottom + 2) {
+      stableOffsetBottom = offsetBottom;
+    }
+    root.style.setProperty(
+      "--vv-bottom-stable",
+      `${stableOffsetBottom || 0}px`,
     );
 
     // Avoid spamming style recalcs for tiny offset jitter.
@@ -58,6 +72,7 @@ function bindStableViewportHeight() {
     stableHeight = null;
     lastOffsetTop = null;
     lastOffsetBottom = null;
+    stableOffsetBottom = null;
     update();
   });
 
