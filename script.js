@@ -38,9 +38,6 @@ function bindStableViewportHeight() {
 
   if (window.visualViewport) {
     window.visualViewport.addEventListener("resize", update, { passive: true });
-    window.visualViewport.addEventListener("scroll", update, { passive: true });
-  } else {
-    window.addEventListener("scroll", update, { passive: true });
   }
 }
 
