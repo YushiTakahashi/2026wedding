@@ -15,12 +15,12 @@ function renderApp() {
   const app = document.getElementById("app");
   app.innerHTML = `
     <section class="hero" id="hero">
-      <div class="hero__inner reveal">
+      <div class="hero__inner reveal reveal--hero">
         <p class="hero__names">YUSHI &amp; AIRI</p>
         <div class="hero__meta">
           <p class="hero__enjoy">ENJOY!</p>
-          <p class="hero__date">${content.hero.dateDisplay || content.hero.date}</p>
-          <p class="hero__time">${content.hero.timeDisplay || content.hero.reception}</p>
+          <p class="hero__date hero__meta-line">${content.hero.dateDisplay || content.hero.date}</p>
+          <p class="hero__time hero__meta-line">${content.hero.timeDisplay || content.hero.reception}</p>
         </div>
         <div class="hero__scroll" aria-hidden="true">
           <span class="hero__scroll-mouse">
