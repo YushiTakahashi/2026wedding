@@ -4,8 +4,8 @@ window.invitationContent = {
     date: "2026.06.28",
     ceremony: "Ceremony 10:30",
     reception: "Reception 11:00 - 13:30",
-    couple: "AIRI MIYAKE & YUSHI TAKAHASHI",
-    namesJa: "三宅愛理  高橋優志",
+    couple: "YUSHI TAKAHASHI & AIRI MIYAKE",
+    namesJa: "高橋優志  三宅愛理",
     venue: "L2126",
     address: "東京都港区南青山4-21-26 RUELLE青山",
     rsvpDeadline: "2026年5月21日(木) まで",
@@ -17,18 +17,18 @@ window.invitationContent = {
   },
   hosts: [
     {
-      role: "BRIDE",
-      name: "三宅愛理",
-      initial: "A",
-      message:
-        "大切な家族や友人に囲まれてこの日を迎えられることが本当に嬉しいです 肩ひじ張らず いつもの私たちらしく過ごせたらと思っています",
-    },
-    {
       role: "GROOM",
       name: "高橋優志",
       initial: "Y",
       message:
         "これまで支えてくださった皆さまへの感謝を きちんと直接お伝えできる一日にしたいと思っています たくさん食べて 気楽に楽しんでください",
+    },
+    {
+      role: "BRIDE",
+      name: "三宅愛理",
+      initial: "A",
+      message:
+        "大切な家族や友人に囲まれてこの日を迎えられることが本当に嬉しいです 肩ひじ張らず いつもの私たちらしく過ごせたらと思っています",
     },
   ],
   schedule: [

@@ -17,16 +17,21 @@ function renderApp() {
   const app = document.getElementById("app");
   app.innerHTML = `
     <section class="hero" id="hero">
-      <div class="hero__art reveal">
-        <img class="hero__text-bg" src="./img/hero_text_bg.svg" alt="" aria-hidden="true" />
-        <img class="hero__text-rotate" src="./img/hero_text_rotate.svg" alt="" aria-hidden="true" />
-        <img class="hero__deco" src="./img/hero_deco.png" alt="" aria-hidden="true" />
-      </div>
-      <div class="hero__info reveal">
-        <img class="hero__info-bg" src="./img/hero_info_bg.svg" alt="" aria-hidden="true" />
-        <div class="hero__info-text">
-          <p class="hero__date">${content.hero.date}</p>
+      <div class="hero__inner reveal">
+        <p class="hero__enjoy">ENJOY!</p>
+        <p class="hero__names">YUSHI &amp; AIRI</p>
+        <div class="hero__meta">
+          <p class="hero__date">June 28, 2026</p>
+          <p class="hero__time">10:30 - 13:30</p>
         </div>
+        <div class="hero__scroll" aria-hidden="true">
+          <span class="hero__scroll-label">SCROLL</span>
+          <span class="hero__scroll-mouse">
+            <span class="hero__scroll-dot"></span>
+          </span>
+          <span class="hero__scroll-arrow"></span>
+        </div>
+        <img class="hero__deco" src="./img/hero_deco.svg" alt="" aria-hidden="true" />
       </div>
     </section>
 
@@ -65,7 +70,7 @@ function renderApp() {
       </div>
       <div class="container">
         <div class="section-title reveal">
-          <p class="section-title__eyebrow">ACCESS</p>
+          <img class="section-title__asset section-title__asset--section-head" src="./img/access.svg" alt="ACCESS" />
           <h2 class="section-title__subheading">会場情報</h2>
         </div>
         <div class="info-grid reveal">
@@ -83,7 +88,7 @@ function renderApp() {
     <section class="section section--form" id="rsvp">
       <div class="container">
         <div class="section-title reveal">
-          <p class="section-title__eyebrow">RSVP</p>
+          <img class="section-title__asset section-title__asset--section-head" src="./img/rsvp.svg" alt="RSVP" />
           <h2 class="section-title__title">ご出欠について</h2>
           <p class="section-title__copy">お手数ですが<br><span class="section-title__deadline">${content.hero.rsvpDeadline}</span>に<br>ご回答をお願いいたします</p>
         </div>
