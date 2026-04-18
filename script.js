@@ -5,10 +5,31 @@ function bindStableViewportHeight() {
   const root = document.documentElement;
   let stableHeight = null;
   const jitterTolerancePx = 32;
+  let lastOffsetTop = null;
+  let lastOffsetBottom = null;
 
   const readViewportHeight = () => {
     if (window.visualViewport?.height) return window.visualViewport.height;
     return window.innerHeight;
+  };
+
+  const updateViewportOffsets = () => {
+    if (!window.visualViewport) return;
+    const offsetTop = window.visualViewport.offsetTop || 0;
+    const offsetBottom = Math.max(
+      0,
+      window.innerHeight - (offsetTop + window.visualViewport.height),
+    );
+
+    // Avoid spamming style recalcs for tiny offset jitter.
+    if (lastOffsetTop === null || Math.abs(offsetTop - lastOffsetTop) > 2) {
+      root.style.setProperty("--vv-top", `${offsetTop}px`);
+      lastOffsetTop = offsetTop;
+    }
+    if (lastOffsetBottom === null || Math.abs(offsetBottom - lastOffsetBottom) > 2) {
+      root.style.setProperty("--vv-bottom", `${offsetBottom}px`);
+      lastOffsetBottom = offsetBottom;
+    }
   };
 
   const update = () => {
@@ -26,6 +47,8 @@ function bindStableViewportHeight() {
 
     // 1svh = 1% of small viewport height, so we emulate it.
     root.style.setProperty("--stable-svh", `${stableHeight * 0.01}px`);
+
+    updateViewportOffsets();
   };
 
   update();
@@ -33,11 +56,22 @@ function bindStableViewportHeight() {
   window.addEventListener("resize", update, { passive: true });
   window.addEventListener("orientationchange", () => {
     stableHeight = null;
+    lastOffsetTop = null;
+    lastOffsetBottom = null;
     update();
   });
 
   if (window.visualViewport) {
     window.visualViewport.addEventListener("resize", update, { passive: true });
+    // In some in-app browsers, the top/bottom UI changes visual viewport offset
+    // during scroll without triggering a resize.
+    window.visualViewport.addEventListener(
+      "scroll",
+      () => {
+        updateViewportOffsets();
+      },
+      { passive: true },
+    );
   }
 }
 
