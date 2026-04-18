@@ -72,8 +72,8 @@ img {
   --hero-bottom-inset: clamp(28px, 9vh, 108px);
   position: relative;
   width: 100%;
-  min-height: 100svh;
   min-height: 100vh;
+  min-height: 100svh;
   padding:
     calc(var(--hero-top-inset) + var(--hero-safe-top))
     32px
