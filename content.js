@@ -2,6 +2,8 @@ window.invitationContent = {
   hero: {
     eyebrow: "Wedding Invitation",
     date: "2026.06.28",
+    dateDisplay: "June 28, 2026",
+    timeDisplay: "10:30 - 13:30",
     ceremony: "Ceremony 10:30",
     reception: "Reception 11:00 - 13:30",
     couple: "YUSHI TAKAHASHI & AIRI MIYAKE",
@@ -89,11 +91,5 @@ window.invitationContent = {
       ceremony: "entry.1298471478",
       reception: "entry.1934073530",
     },
-  },
-  appsScript: {
-    enabled: false,
-    webAppUrl: "https://script.google.com/macros/s/AKfycbw9l8XY2JC8xRmHnLB1LtRsx0RTGBYYg552behhA3SWAnaH-BgeKXimw_9Ks9v80SjokQ/exec",
-    submitMessage:
-      "回答を受け付けました\nありがとうございます！",
   },
 };

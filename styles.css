@@ -461,8 +461,7 @@ img {
 }
 
 .info-card,
-.rsvp-form,
-.preview-card {
+.rsvp-form {
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.34);
 }
@@ -475,16 +474,14 @@ img {
   margin-bottom: 8px;
 }
 
-.info-card__eyebrow,
-.preview-card__eyebrow {
+.info-card__eyebrow {
   margin: 0 0 6px;
   font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.18em;
 }
 
-.info-card h3,
-.preview-card h3 {
+.info-card h3 {
   margin: 0 0 6px;
   font-family: "Futehodo Maru Gothic", "Noto Sans JP", sans-serif;
   font-size: 0.82rem;
@@ -665,7 +662,6 @@ fieldset.field {
   color: var(--text-soft);
 }
 
-.preview-card,
 .side-rail,
 .mobile-actions {
   display: none;

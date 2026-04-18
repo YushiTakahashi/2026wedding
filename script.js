@@ -1,7 +1,5 @@
-const storageKey = "wedding-invitation-rsvp";
 const content = window.invitationContent;
 const googleForm = content.googleForm;
-const appsScript = content.appsScript || { enabled: false };
 
 function createSectionTitle(eyebrow, title, copy) {
   return `
@@ -21,8 +19,8 @@ function renderApp() {
         <p class="hero__enjoy">ENJOY!</p>
         <p class="hero__names">YUSHI &amp; AIRI</p>
         <div class="hero__meta">
-          <p class="hero__date">June 28, 2026</p>
-          <p class="hero__time">10:30 - 13:30</p>
+          <p class="hero__date">${content.hero.dateDisplay || content.hero.date}</p>
+          <p class="hero__time">${content.hero.timeDisplay || content.hero.reception}</p>
         </div>
         <div class="hero__scroll" aria-hidden="true">
           <span class="hero__scroll-label">SCROLL</span>
@@ -206,19 +204,6 @@ function renderApp() {
             </div>
             <p class="form-status" id="form-status" aria-live="polite"></p>
           </form>
-
-          <aside class="preview-card reveal">
-            <p class="preview-card__eyebrow">Preview</p>
-            <h3>回答プレビュー</h3>
-            <dl id="rsvp-preview">
-              <div><dt>お名前</dt><dd>未入力</dd></div>
-              <div><dt>ゲスト区分</dt><dd>未入力</dd></div>
-              <div><dt>電話番号</dt><dd>未入力</dd></div>
-              <div><dt>挙式</dt><dd>未入力</dd></div>
-              <div><dt>披露宴</dt><dd>未入力</dd></div>
-              <div><dt>アレルギー</dt><dd>未入力</dd></div>
-            </dl>
-          </aside>
         </div>
       </div>
     </section>
@@ -258,24 +243,6 @@ function renderTimeline() {
   });
 }
 
-function updatePreview(formData) {
-  const preview = document.getElementById("rsvp-preview");
-  const pairs = [
-    formData.name || "未入力",
-    formData.guestType || "未入力",
-    formData.phone || "未入力",
-    formData.ceremony || "未入力",
-    formData.reception || "未入力",
-    formData.allergyDetail
-      ? `${formData.allergy || "未入力"} / ${formData.allergyDetail}`
-      : formData.allergy || "未入力",
-  ];
-
-  preview.querySelectorAll("dd").forEach((element, index) => {
-    element.textContent = pairs[index];
-  });
-}
-
 function collectFormData(form) {
   const data = {};
   form.querySelectorAll("[data-field-key]").forEach((field) => {
@@ -292,109 +259,7 @@ function collectFormData(form) {
 
     data[key] = field.value ?? "";
   });
-  data.updatedAt = new Date().toISOString();
   return data;
-}
-
-function restoreForm(form) {
-  const raw = window.localStorage.getItem(storageKey);
-  if (!raw) return;
-
-  const data = JSON.parse(raw);
-  Object.entries(data).forEach(([key, value]) => {
-    if (key === "updatedAt") return;
-
-    const fields = form.querySelectorAll(`[data-field-key="${key}"]`);
-    if (!fields.length) return;
-
-    if (fields[0].type === "radio") {
-      const target = Array.from(fields).find((item) => item.value === value);
-      if (target) target.checked = true;
-    } else {
-      fields[0].value = value;
-    }
-  });
-
-  updatePreview(data);
-}
-
-function persistAndPreview(form) {
-  const data = collectFormData(form);
-  window.localStorage.setItem(storageKey, JSON.stringify(data));
-  updatePreview(data);
-  return data;
-}
-
-function submitViaAppsScript(data, targetName) {
-  return new Promise((resolve, reject) => {
-    const targetFrame = document.getElementById(targetName);
-    const tempForm = document.createElement("form");
-    tempForm.method = "POST";
-    tempForm.action = appsScript.webAppUrl;
-    tempForm.target = targetName;
-    tempForm.hidden = true;
-    let settled = false;
-    let timeoutId = null;
-
-    const payload = {
-      submittedAt: new Date().toISOString(),
-      ...data,
-    };
-
-    Object.entries(payload).forEach(([key, value]) => {
-      const input = document.createElement("input");
-      input.type = "hidden";
-      input.name = key;
-      input.value = value ?? "";
-      tempForm.appendChild(input);
-    });
-
-    const cleanup = () => {
-      settled = true;
-      if (timeoutId) window.clearTimeout(timeoutId);
-      window.removeEventListener("message", handleMessage);
-      if (targetFrame) {
-        targetFrame.removeEventListener("load", handleFrameLoad);
-      }
-      tempForm.remove();
-    };
-
-    const handleMessage = (event) => {
-      const message = event.data;
-      if (settled) return;
-      if (!message || message.source !== "wedding-rsvp-apps-script") return;
-
-      if (message.payload && message.payload.ok === true) {
-        cleanup();
-        resolve(message.payload);
-        return;
-      }
-
-      cleanup();
-      reject(new Error(message.payload?.error || "Apps Script did not confirm success"));
-    };
-
-    const handleFrameLoad = () => {
-      if (settled) return;
-      window.setTimeout(() => {
-        if (settled) return;
-        cleanup();
-        reject(new Error("Apps Script response did not confirm success"));
-      }, 300);
-    };
-
-    window.addEventListener("message", handleMessage);
-    if (targetFrame) {
-      targetFrame.addEventListener("load", handleFrameLoad, { once: true });
-    }
-    document.body.appendChild(tempForm);
-    timeoutId = window.setTimeout(() => {
-      if (settled) return;
-      cleanup();
-      reject(new Error("Apps Script response timed out"));
-    }, 12000);
-    tempForm.submit();
-  });
 }
 
 function bindForm() {
@@ -406,7 +271,6 @@ function bindForm() {
   let isSubmitting = false;
   let submissionMode = null;
 
-  restoreForm(form);
   applyGoogleFormConfig(form);
 
   if (submitFrame) {
@@ -421,34 +285,9 @@ function bindForm() {
     });
   }
 
-  form.addEventListener("input", () => {
-    persistAndPreview(form);
-  });
-
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-    const data = persistAndPreview(form);
-    if (appsScript.enabled && appsScript.webAppUrl) {
-      isSubmitting = true;
-      submissionMode = "apps-script";
-      status.textContent = "送信中です 少々お待ちください";
-      submitViaAppsScript(data, googleForm.submitTarget || "google-form-submit-frame")
-        .then(() => {
-          isSubmitting = false;
-          submissionMode = null;
-          const completedStatusMessage = `${appsScript.submitMessage || googleForm.submitMessage}\nこの画面は閉じて大丈夫です`;
-          status.textContent = completedStatusMessage;
-          window.alert(completedStatusMessage);
-        })
-        .catch((error) => {
-          isSubmitting = false;
-          submissionMode = null;
-          status.textContent = "送信できませんでした 時間をおいてもう一度お試しください";
-          window.console.error(error);
-        });
-      return;
-    }
-
+    const data = collectFormData(form);
     if (googleForm.enabled && form.action) {
       isSubmitting = true;
       submissionMode = "google-form";
