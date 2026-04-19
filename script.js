@@ -152,6 +152,7 @@ function renderApp() {
             </fieldset>
             <label class="field">
               <span>「あり」と回答した方</span>
+              <p class="field__hint">${content.rsvp.allergyDetailHint}</p>
               <textarea
                 name="allergyDetail"
                 data-field-key="allergyDetail"

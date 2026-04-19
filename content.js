@@ -79,7 +79,9 @@ window.invitationContent = {
     ],
     sideOptions: ["新郎ゲスト", "新婦ゲスト"],
     allergyOptions: ["なし", "あり"],
-    messagePlaceholder: "アレルギー詳細をご記入ください",
+    messagePlaceholder: "詳細をご記入ください",
+    allergyDetailHint:
+      "※「お名前」を複数名ご入力の場合は どなたの内容かわかるように お一人ずつご記入ください",
     notePlaceholder: "ご要望やご不明点がありましたらご記入ください",
     afterPartyDescription:
       "開催が日曜かつ遠方の方もいらっしゃるため<br>二次会を開催するかどうか悩んでおります<br>以下アンケートにも回答いただけると嬉しいです☺️",
