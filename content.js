@@ -82,7 +82,7 @@ window.invitationContent = {
     messagePlaceholder: "アレルギー詳細をご記入ください",
     notePlaceholder: "ご要望やご不明点がありましたらご記入ください",
     afterPartyDescription:
-      "開催が日曜かつ遠方の方もいらっしゃるため<br>二次会を開催するかどうか悩んでおります<br>以下アンケートにも回答いただけると嬉しいです😭",
+      "開催が日曜かつ遠方の方もいらっしゃるため<br>二次会を開催するかどうか悩んでおります<br>以下アンケートにも回答いただけると嬉しいです☺️",
   },
   googleForm: {
     enabled: true,
