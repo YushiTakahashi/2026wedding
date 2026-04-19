@@ -67,10 +67,22 @@ window.invitationContent = {
     deadline: "2026-05-21",
     ceremonyOptions: ["ご出席", "ご欠席"],
     receptionOptions: ["ご出席", "ご欠席"],
+    afterPartyOptions: [
+      {
+        label: "あったら行こうかな",
+        value: "あったら行こうかな",
+      },
+      {
+        label: "帰りの都合があるのでまた今度！",
+        value: "帰りの都合があるのでまた今度！",
+      },
+    ],
     sideOptions: ["新郎ゲスト", "新婦ゲスト"],
     allergyOptions: ["なし", "あり"],
-    messagePlaceholder:
-      "アレルギー詳細をご記入ください",
+    messagePlaceholder: "アレルギー詳細をご記入ください",
+    notePlaceholder: "ご要望やご不明点がありましたらご記入ください",
+    afterPartyDescription:
+      "開催が日曜かつ遠方の方もいらっしゃるため<br>二次会を開催するかどうか悩んでおります<br>以下アンケートにも回答いただけると嬉しいです😭",
   },
   googleForm: {
     enabled: true,
@@ -90,6 +102,8 @@ window.invitationContent = {
       allergyDetail: "entry.32593815",
       ceremony: "entry.1298471478",
       reception: "entry.1934073530",
+      note: "entry.1296215317",
+      afterParty: "entry.1982351993",
     },
   },
 };

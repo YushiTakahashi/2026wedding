@@ -602,6 +602,14 @@ img {
   font-weight: 700;
 }
 
+.field__hint {
+  margin: 0 0 8px;
+  white-space: normal;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--text-soft);
+}
+
 fieldset.field {
   border: 0;
   margin-inline: 0;

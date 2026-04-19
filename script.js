@@ -201,6 +201,37 @@ function renderApp() {
                   .join("")}
               </div>
             </fieldset>
+            <label class="field">
+              <span>その他</span>
+              <textarea
+                name="note"
+                data-field-key="note"
+                rows="4"
+                placeholder="${content.rsvp.notePlaceholder}"
+              ></textarea>
+            </label>
+            <fieldset class="field">
+              <legend>【アンケート】二次会について</legend>
+              <p class="field__hint">${content.rsvp.afterPartyDescription}</p>
+              <div class="choice-row">
+                ${content.rsvp.afterPartyOptions
+                  .map(
+                    (option) => `
+                      <label class="choice">
+                        <input
+                          type="radio"
+                          name="afterParty"
+                          data-field-key="afterParty"
+                          value="${option.value}"
+                          required
+                        />
+                        <span>${option.label}</span>
+                      </label>
+                    `,
+                  )
+                  .join("")}
+              </div>
+            </fieldset>
             <div class="form-actions">
               <button class="button button--primary" type="submit">回答する</button>
             </div>
@@ -303,6 +334,8 @@ function bindForm() {
       `ゲスト区分: ${data.guestType || "未入力"}`,
       `挙式: ${data.ceremony || "未入力"}`,
       `披露宴: ${data.reception || "未入力"}`,
+      `その他: ${data.note || "未入力"}`,
+      `二次会: ${data.afterParty || "未入力"}`,
     ].join("\n");
     status.textContent = "内容をローカル保存しました";
     window.alert(`入力内容を保存しました\n\n${summary}`);
@@ -329,6 +362,8 @@ function applyGoogleFormConfig(form) {
     allergyDetail: googleForm.entries.allergyDetail,
     ceremony: googleForm.entries.ceremony,
     reception: googleForm.entries.reception,
+    note: googleForm.entries.note,
+    afterParty: googleForm.entries.afterParty,
   };
 
   Object.entries(fieldNames).forEach(([fieldKey, fieldName]) => {
