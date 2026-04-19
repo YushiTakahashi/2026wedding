@@ -28,7 +28,10 @@ function renderApp() {
           </span>
           <span class="hero__scroll-arrow"></span>
         </div>
-        <img class="hero__deco" src="./img/hero_deco.svg" alt="" aria-hidden="true" />
+        <div class="hero__deco" aria-hidden="true">
+          <img class="hero__deco-image" src="./img/hero_deco.svg" alt="" />
+          <img class="hero__deco-image hero__deco-image--close" src="./img/hero_deco_close.svg" alt="" />
+        </div>
       </div>
     </section>
 
@@ -354,8 +357,39 @@ function bindReveal() {
   document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
 }
 
+function bindHeroBlink() {
+  const heroDeco = document.querySelector(".hero__deco");
+  if (!heroDeco) return;
+
+  const randomRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+  const wait = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
+  async function blink(blinkCount) {
+    for (let index = 0; index < blinkCount; index += 1) {
+      heroDeco.classList.add("is-blinking");
+      await wait(48);
+      heroDeco.classList.remove("is-blinking");
+
+      if (index < blinkCount - 1) {
+        await wait(100);
+      }
+    }
+  }
+
+  async function runBlinkSequence() {
+    const blinkCount = Math.random() < 0.5 ? 1 : 2;
+    await blink(blinkCount);
+
+    await wait(randomRange(2000, 5000));
+    runBlinkSequence();
+  }
+
+  wait(randomRange(2000, 5000)).then(runBlinkSequence);
+}
+
 renderApp();
 renderHosts();
 renderTimeline();
 bindForm();
 bindReveal();
+bindHeroBlink();

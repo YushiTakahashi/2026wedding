@@ -172,21 +172,37 @@ img {
 
 .hero__deco {
   position: absolute;
-  top: calc(
-    (
-      var(--hero-top-inset) +
-      var(--hero-safe-top) +
-      var(--hero-bottom-inset) +
-      var(--hero-safe-bottom) +
-      168px
-    ) / 2 - 72px
-  );
+  top: calc((100% - var(--hero-bottom-inset) - var(--hero-safe-bottom) - 96px) / 2);
   right: 0;
-  height: calc(100% - var(--hero-top-inset) - var(--hero-bottom-inset) - 168px);
+  aspect-ratio: 1011 / 1108;
+  height: calc(100% - var(--hero-top-inset) - var(--hero-bottom-inset) - 320px);
   width: auto;
-  max-height: calc(100% - var(--hero-top-inset) - var(--hero-bottom-inset) - 168px);
-  min-width: min(60%, 248px);
-  transform: none;
+  max-height: calc(100% - var(--hero-top-inset) - var(--hero-bottom-inset) - 320px);
+  min-width: min(42%, 172px);
+  transform: translateY(-50%);
+}
+
+.hero__deco-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__deco-image:not(.hero__deco-image--close) {
+  opacity: 1;
+}
+
+.hero__deco-image--close {
+  opacity: 0;
+}
+
+.hero__deco.is-blinking .hero__deco-image:not(.hero__deco-image--close) {
+  opacity: 0;
+}
+
+.hero__deco.is-blinking .hero__deco-image--close {
+  opacity: 1;
 }
 
 .hero__scroll {
@@ -825,6 +841,42 @@ fieldset.field {
   }
 }
 
+@keyframes hero-deco-blink {
+  0%,
+  46.9%,
+  48.1%,
+  49.9%,
+  51.1%,
+  100% {
+    opacity: 0;
+  }
+
+  47.2%,
+  47.8%,
+  50.2%,
+  50.8% {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-deco-open-blink {
+  0%,
+  46.9%,
+  48.1%,
+  49.9%,
+  51.1%,
+  100% {
+    opacity: 1;
+  }
+
+  47.2%,
+  47.8%,
+  50.2%,
+  50.8% {
+    opacity: 0;
+  }
+}
+
 @keyframes hero-deco-in {
   0% {
     opacity: 0;
@@ -904,10 +956,13 @@ fieldset.field {
   }
 
   .hero__deco {
-    height: calc(100% - var(--hero-top-inset) - var(--hero-bottom-inset) - 120px);
+    aspect-ratio: 1011 / 1108;
+    top: calc((100% - var(--hero-bottom-inset) - var(--hero-safe-bottom) - 96px) / 2);
+    height: calc(100% - var(--hero-top-inset) - var(--hero-bottom-inset) - 210px);
     width: auto;
-    max-height: calc(100% - var(--hero-top-inset) - var(--hero-bottom-inset) - 120px);
-    min-width: min(62%, 236px);
+    max-height: calc(100% - var(--hero-top-inset) - var(--hero-bottom-inset) - 210px);
+    min-width: min(48%, 180px);
+    transform: translateY(-50%);
   }
 
   .hero__scroll {
