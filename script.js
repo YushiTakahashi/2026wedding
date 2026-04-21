@@ -423,9 +423,15 @@ function bindHeroBlink() {
   wait(randomRange(2000, 5000)).then(runBlinkSequence);
 }
 
+function setInitialViewportHeight() {
+  const vh = window.innerHeight
+  document.documentElement.style.setProperty('--initial-vh', `${vh}px`);
+}
+
 renderApp();
 renderHosts();
 renderTimeline();
 bindForm();
 bindReveal();
 bindHeroBlink();
+setInitialViewportHeight();

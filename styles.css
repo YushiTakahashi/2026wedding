@@ -72,8 +72,7 @@ img {
   --hero-bottom-inset: clamp(28px, 9vh, 108px);
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  min-height: 100svh;
+  height: var(--initial-vh); 
   padding:
     calc(var(--hero-top-inset) + var(--hero-safe-top))
     32px
@@ -937,12 +936,11 @@ fieldset.field {
   }
 }
 
-@media (max-height: 740px) {
+@media (max-height: 900px) {
   .hero__inner {
     --hero-top-inset: 20px;
     --hero-bottom-inset: 24px;
-    min-height: 100vh;
-    min-height: 100svh;
+     height: var(--initial-vh);
   }
 
   .hero__enjoy {
