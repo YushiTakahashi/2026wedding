@@ -72,8 +72,7 @@ img {
   --hero-bottom-inset: clamp(28px, 9vh, 108px);
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  min-height: 100svh;
+  height: var(--initial-vh); 
   padding:
     calc(var(--hero-top-inset) + var(--hero-safe-top))
     32px
@@ -120,7 +119,7 @@ img {
 .hero__meta {
   position: absolute;
   left: 32px;
-  bottom: calc(var(--hero-bottom-inset) + var(--hero-safe-bottom));
+  bottom: 24px;
   z-index: 1;
 }
 
@@ -171,12 +170,11 @@ img {
 
 .hero__deco {
   position: absolute;
-  top: calc((100% - var(--hero-bottom-inset) - var(--hero-safe-bottom) - 96px) / 2);
+  top: calc((100% - 96px) / 2);
   right: 0;
   aspect-ratio: 1011 / 1108;
-  height: calc(100% - var(--hero-top-inset) - var(--hero-bottom-inset) - 320px);
+  height: calc(100% - 320px);
   width: auto;
-  max-height: calc(100% - var(--hero-top-inset) - var(--hero-bottom-inset) - 320px);
   min-width: min(42%, 172px);
   transform: translateY(-50%);
 }
@@ -937,12 +935,11 @@ fieldset.field {
   }
 }
 
-@media (max-height: 740px) {
+@media (max-height: 900px) {
   .hero__inner {
     --hero-top-inset: 20px;
     --hero-bottom-inset: 24px;
-    min-height: 100vh;
-    min-height: 100svh;
+     height: var(--initial-vh);
   }
 
   .hero__enjoy {
@@ -959,16 +956,6 @@ fieldset.field {
 
   .hero__time {
     font-size: 0.88em;
-  }
-
-  .hero__deco {
-    aspect-ratio: 1011 / 1108;
-    top: calc((100% - var(--hero-bottom-inset) - var(--hero-safe-bottom) - 96px) / 2);
-    height: calc(100% - var(--hero-top-inset) - var(--hero-bottom-inset) - 210px);
-    width: auto;
-    max-height: calc(100% - var(--hero-top-inset) - var(--hero-bottom-inset) - 210px);
-    min-width: min(48%, 180px);
-    transform: translateY(-50%);
   }
 
   .hero__scroll {
